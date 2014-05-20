@@ -81,7 +81,7 @@ def read_fg_firewall_log(logfile):
     kvdelim = '='  # key and value deliminator
     try:
         filehandle = open(logfile, "r")
-    except Exception, ex:
+    except IOError as ex:
         print "Error: file %s not readable" % (logfile)
         print ex.message
         sys.exit(2)
@@ -178,16 +178,16 @@ def main():
     if check_if_file_exists(dbfile):
         print "Error: %s exists already" % (dbfile)
         answer = raw_input("would you like to append to the dbfile? (y/n): ")
-        if answer is 'n':
-            print "exiting"
+        if 'n' in answer:
+            print "exiting..."
             sys.exit(2)
     else:
         create_table(dbfile)
 
     # read and append logfile
-    f = open(logfile)
+    filehandle = open(logfile, "r")
     loglist = read_fg_firewall_log(logfile)
-    f.close()
+    filehandle.close()
     write_loglist_to_db(dbfile, loglist)
 
 if __name__ == "__main__":
