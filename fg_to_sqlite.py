@@ -9,10 +9,13 @@
 __author__ = 'olivier'
 
 import os.path
+import exceptions
 import sys
 
 from docopt import docopt
 import sqlite3
+from sqlite3 import IntegrityError
+from sqlite3 import DatabaseError
 import shlex
 
 
@@ -27,7 +30,6 @@ def create_table(dbfile):
     """
     creates an empty fortiguard log database
     """
-
     statement = '''
     CREATE TABLE log(
     id INTEGER PRIMARY KEY,
@@ -64,12 +66,15 @@ def execute_sqlite_query(dbfile, query):
     """
     executes an sqlite query
     """
-    check_if_file_exists(dbfile)
-    conn = sqlite3.connect(dbfile)
-    cursor = conn.cursor()
-    cursor.execute(query)
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect(dbfile)
+        cursor = conn.cursor()
+        cursor.execute(query)
+        conn.commit()
+    except (IntegrityError, DatabaseError) as ex:
+        raise ex
+    finally:
+        conn.close()
     return True
 
 
