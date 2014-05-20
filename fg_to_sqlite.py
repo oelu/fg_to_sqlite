@@ -9,7 +9,6 @@
 __author__ = 'olivier'
 
 import os.path
-import exceptions
 import sys
 
 from docopt import docopt
@@ -168,6 +167,7 @@ def write_loglist_to_db(dbfile, loglist):
                , loglist[counter]['rcvdbyte']
                )
         execute_sqlite_query(dbfile, query)
+    print "added %s records to %s" %(counter, dbfile)
     return True
 
 
