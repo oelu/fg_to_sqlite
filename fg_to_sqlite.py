@@ -33,7 +33,7 @@ def create_table(dbfile):
 
     statement = '''
     CREATE TABLE log(
-    id INT PRIMARY KEY NOT NULL,
+    id INTEGER PRIMARY KEY,
     dstcountry  TEXT,
     dstintf TEXT,
     date    DATE,
@@ -110,7 +110,7 @@ def write_loglist_to_db(dbfile, loglist):
         query = """
         INSERT INTO log
         VALUES (
-        %s
+        NULL
         , "%s"
         , "%s"
         , "%s"
@@ -136,8 +136,8 @@ def write_loglist_to_db(dbfile, loglist):
         , "%s"
         , "%s"
         );
-        """ % (counter
-               , loglist[counter]['dstcountry']
+        """ % (
+               loglist[counter]['dstcountry']
                , loglist[counter]['dstintf']
                , loglist[counter]['date']
                , loglist[counter]['time']
