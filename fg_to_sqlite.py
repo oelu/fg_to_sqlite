@@ -27,9 +27,6 @@ def create_table(dbfile):
     """
     creates an empty fortiguard log database
     """
-    if check_if_file_exists(dbfile):
-        print "error: file exists already"
-        sys.exit(2)
 
     statement = '''
     CREATE TABLE log(
@@ -106,6 +103,9 @@ def write_loglist_to_db(dbfile, loglist):
     """
     writes a fortigate loglist to an sqllite db
     """
+    # If NULL is provided as primary key,
+    # the primary key will be autoincremented by
+    # sqlite
     for counter, line in enumerate(loglist):
         query = """
         INSERT INTO log
@@ -175,11 +175,19 @@ def main():
     dbfile = arguments['<dbfile>']
     logfile = arguments['<logfile>']
     # create database
-    create_table(dbfile)
+    if check_if_file_exists(dbfile):
+        print "Error: %s exists already" % (dbfile)
+        answer = raw_input("would you like to append to the dbfile? (y/n): ")
+        if answer is 'n':
+            print "exiting"
+            sys.exit(2)
+    else:
+        create_table(dbfile)
+
+    # read and append logfile
     f = open(logfile)
     loglist = read_fg_firewall_log(logfile)
     f.close()
-
     write_loglist_to_db(dbfile, loglist)
 
 if __name__ == "__main__":
