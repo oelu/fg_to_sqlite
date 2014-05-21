@@ -2,6 +2,10 @@
 Converts a fortigate log to an sqlite db file. If the db file already exists, 
 the script asks if you would like to append to the dbfile.
 
+## Requirements
+* Requires docopt module
+* Requires sqlit3 module 
+
 ## Usage
 
     Usage:fg_to_sqlite
