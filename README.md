@@ -81,7 +81,7 @@ print only blocked records:
 
 print blocked records with src ip, src interface and dst ip, dstinterface
 
-sqlite> SELECT srcip,srcintf,dstip,dstintf from log WHERE status=”deny”;
+    sqlite> SELECT srcip,srcintf,dstip,dstintf from log WHERE status=”deny”;
 
 exit sqlite shell: 
 
