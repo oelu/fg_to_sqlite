@@ -80,4 +80,5 @@ print only blocked records:
     sqlite> SELECT * FROM log WHERE status=”deny”;
 
 exit sqlite shell: 
+
     sqlite> .exit
