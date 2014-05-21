@@ -54,16 +54,21 @@ The table structure looks as follows:
 
 ## SQLITE Usage
 open the db file: 
+
     sqlite3 fg.log
 
 print all records: 
+
     sqlite> SELECT * FROM log;
 
 print only records with “server_lan” as source interface:
+
     sqlite> SELECT * FROM log WHERE srcintf=”server_lan”;
 
 print only records with source ip 192.168.1.10 and destination interface wan1:
+
     sqlite> SELECT * FROM log WHERE srcip=”192.168.1.10” and dstintf=”wan1”;
 
 print only blocked records:
+
     sqlite> SELECT * FROM log WHERE status=”deny”;
