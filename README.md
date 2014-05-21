@@ -57,6 +57,8 @@ The table structure looks as follows:
 
 
 ## SQLITE Usage
+Official documentation for sqlite can be obtained from: http://www.sqlite.org/docs.html
+
 open the db file: 
 
     sqlite3 fg.log
@@ -76,3 +78,6 @@ print only records with source ip 192.168.1.10 and destination interface wan1:
 print only blocked records:
 
     sqlite> SELECT * FROM log WHERE status=”deny”;
+
+exit sqlite shell: 
+    sqlite> .exit
