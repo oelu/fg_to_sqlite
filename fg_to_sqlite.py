@@ -58,7 +58,6 @@ def create_table(dbfile):
     rcvdbyte    TEXT)
     '''
     execute_sqlite_query(dbfile, statement)
-    return True
 
 
 def execute_sqlite_query(dbfile, query):
